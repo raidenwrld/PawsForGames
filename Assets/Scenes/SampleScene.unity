@@ -879,6 +879,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1bb6ccf0da6dc84db2083243e48a9f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: []
+  point_number: 0
+  tolerance: 0
+  speed: 0
+  delay_time: 0
+  automatic: 0
 --- !u!65 &113979827
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1335,6 +1341,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1bb6ccf0da6dc84db2083243e48a9f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: []
+  point_number: 0
+  tolerance: 0
+  speed: 0
+  delay_time: 0
+  automatic: 0
 --- !u!65 &235776826
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1580,6 +1592,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1bb6ccf0da6dc84db2083243e48a9f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: []
+  point_number: 0
+  tolerance: 0
+  speed: 0
+  delay_time: 0
+  automatic: 0
 --- !u!65 &360033661
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1930,6 +1948,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1bb6ccf0da6dc84db2083243e48a9f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points:
+  - {x: -2.9, y: 26, z: 173.9}
+  - {x: -2.9, y: -7.88, z: 173.9}
+  point_number: 0
+  tolerance: 0
+  speed: 5
+  delay_time: 0
+  automatic: 0
 --- !u!65 &558911780
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2031,7 +2057,7 @@ Transform:
   m_GameObject: {fileID: 558911778}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.9, y: 26, z: 173.9}
+  m_LocalPosition: {x: 2.9, y: -7.88, z: 168.85}
   m_LocalScale: {x: 5.811721, y: 13.863339, z: 5.913522}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2070,6 +2096,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1bb6ccf0da6dc84db2083243e48a9f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: []
+  point_number: 0
+  tolerance: 0
+  speed: 0
+  delay_time: 0
+  automatic: 0
 --- !u!65 &561276799
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2209,6 +2241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5603f9ab7585fb41bfe905ef165d7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1611606721}
+  respawn_point: {fileID: 1459172021}
 --- !u!65 &569908819
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3179,6 +3213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5603f9ab7585fb41bfe905ef165d7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1611606721}
+  respawn_point: {fileID: 649787419}
 --- !u!1 &859924412
 GameObject:
   m_ObjectHideFlags: 0
@@ -3613,6 +3649,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1bb6ccf0da6dc84db2083243e48a9f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: []
+  point_number: 0
+  tolerance: 0
+  speed: 0
+  delay_time: 0
+  automatic: 0
 --- !u!65 &1005047861
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4449,6 +4491,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5603f9ab7585fb41bfe905ef165d7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1611606721}
+  respawn_point: {fileID: 1887860594}
 --- !u!65 &1413647019
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4704,6 +4748,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1bb6ccf0da6dc84db2083243e48a9f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: []
+  point_number: 0
+  tolerance: 0
+  speed: 0
+  delay_time: 0
+  automatic: 0
 --- !u!65 &1489957649
 BoxCollider:
   m_ObjectHideFlags: 0
