@@ -22,8 +22,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask wallLayer;
     public float wallCheckDistance = 0.6f;
     public float wallRunForce = 10f;
-    public float wallRunGravity = 1f;  // Adjust this value for slower fall
-    public float maxWallRunTime = 1.5f;  // Max time player can wall run
+    public float wallRunGravity = 1f;  
+    public float maxWallRunTime = 1.5f;  
     private float wallRunTimer;
 
     private Rigidbody rb;
@@ -42,15 +42,14 @@ public class PlayerMovement : MonoBehaviour
         CheckGrounded();
         CheckWallRun();
 
-        // Jump
         if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || isWallRunning))
         {
             StopWallRun();
-            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);  // Reset Y velocity
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z); 
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
-        // Dash
+        
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && !isDashing)
         {
             StartCoroutine(Dash());
@@ -66,19 +65,19 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.right * h + transform.forward * v;
         Vector3 velocity = move * moveSpeed;
-        velocity.y = rb.velocity.y;  // Preserve Y velocity (no sudden changes)
+        velocity.y = rb.velocity.y;  
         rb.velocity = velocity;
 
         if (isWallRunning)
         {
             rb.AddForce(transform.forward * wallRunForce, ForceMode.Acceleration);
-            rb.AddForce(Vector3.down * wallRunGravity, ForceMode.Acceleration);  // Apply custom gravity
+            rb.AddForce(Vector3.down * wallRunGravity, ForceMode.Acceleration);  
 
-            // Decrease the wall run timer
+            
             wallRunTimer -= Time.fixedDeltaTime;
             if (wallRunTimer <= 0f)
             {
-                StopWallRun();  // Stop wall running when the timer runs out
+                StopWallRun();  
             }
         }
     }
@@ -105,7 +104,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (groundCheckPoint == null)
         {
-            // fallback to object center if no ground check point set
             groundCheckPoint = transform;
         }
 
@@ -134,10 +132,10 @@ public class PlayerMovement : MonoBehaviour
         if (isWallRunning) return;
 
         isWallRunning = true;
-        wallRunTimer = maxWallRunTime;  // Reset the timer each time wall run starts
-        rb.useGravity = false;  // Disable normal gravity during wall run
+        wallRunTimer = maxWallRunTime;  // resets wall run timer when starting to run again
+        rb.useGravity = false;  // disable normal gravity during wall run
 
-        rb.velocity = Vector3.Project(rb.velocity, Vector3.Cross(wallNormal, Vector3.up));  // Move player along the wall
+        rb.velocity = Vector3.Project(rb.velocity, Vector3.Cross(wallNormal, Vector3.up));
     }
 
     void StopWallRun()
@@ -145,6 +143,6 @@ public class PlayerMovement : MonoBehaviour
         if (!isWallRunning) return;
 
         isWallRunning = false;
-        rb.useGravity = true;  // Re-enable normal gravity when not wall running
+        rb.useGravity = true; 
     }
 }
