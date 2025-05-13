@@ -22,8 +22,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask wallLayer;
     public float wallCheckDistance = 0.6f;
     public float wallRunForce = 10f;
-    public float wallRunGravity = 1f;  
-    public float maxWallRunTime = 1.5f;  
+    public float wallRunGravity = 1f;
+    public float maxWallRunTime = 1.5f;
     private float wallRunTimer;
 
     private Rigidbody rb;
@@ -45,11 +45,11 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || isWallRunning))
         {
             StopWallRun();
-            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z); 
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
-        
+
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && !isDashing)
         {
             StartCoroutine(Dash());
@@ -63,21 +63,23 @@ public class PlayerMovement : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
+        if (isWallRunning)
+            h = 0;  // block side movement during wall run
+
         Vector3 move = transform.right * h + transform.forward * v;
         Vector3 velocity = move * moveSpeed;
-        velocity.y = rb.velocity.y;  
+        velocity.y = rb.velocity.y;
         rb.velocity = velocity;
 
         if (isWallRunning)
         {
             rb.AddForce(transform.forward * wallRunForce, ForceMode.Acceleration);
-            rb.AddForce(Vector3.down * wallRunGravity, ForceMode.Acceleration);  
+            rb.AddForce(Vector3.down * wallRunGravity, ForceMode.Acceleration);
 
-            
             wallRunTimer -= Time.fixedDeltaTime;
             if (wallRunTimer <= 0f)
             {
-                StopWallRun();  
+                StopWallRun();
             }
         }
     }
@@ -143,6 +145,6 @@ public class PlayerMovement : MonoBehaviour
         if (!isWallRunning) return;
 
         isWallRunning = false;
-        rb.useGravity = true; 
+        rb.useGravity = true;
     }
 }
