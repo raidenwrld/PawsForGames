@@ -9,12 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: b84c4db67e1a5f341b301bc87fb5bd02
   - enabled: 1
-    path: Assets/Scenes/AaryanScene.unity
-    guid: b8727b45de2bc7e4ab9022290d66d792
-  - enabled: 1
-    path: Assets/Scenes/BetaLevel.unity
+    path: Assets/Scenes/Level 1.unity
     guid: b903950f9605a1346821a44b0561f3fc
   - enabled: 1
-    path: Assets/Scenes/ChrisScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/Level 2.unity
+    guid: 041e3ea8a89d50d4dbcbcdff60abdbd7
+  - enabled: 1
+    path: Assets/Scenes/Level 3.unity
+    guid: 3f885df051bdf2b43a24c7af81f00f80
   m_configObjects: {}
