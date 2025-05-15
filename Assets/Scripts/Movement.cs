@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isDashing = false;
     private bool canDash = true;
     private bool isWallRunning = false;
+    private bool jumpQueued = false;
 
     void Start()
     {
@@ -44,11 +45,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || isWallRunning))
         {
-            StopWallRun();
-            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            jumpQueued = true;
         }
-
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && !isDashing)
         {
@@ -63,13 +61,23 @@ public class PlayerMovement : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        if (isWallRunning)
-            h = 0;  // block side movement during wall run
-
         Vector3 move = transform.right * h + transform.forward * v;
-        Vector3 velocity = move * moveSpeed;
-        velocity.y = rb.velocity.y;
-        rb.velocity = velocity;
+
+        if (isWallRunning)
+            h = 0;
+
+        Vector3 horizontalVelocity = move * moveSpeed;
+        rb.velocity = new Vector3(horizontalVelocity.x, rb.velocity.y, horizontalVelocity.z);
+
+        if (jumpQueued)
+        {
+            jumpQueued = false;
+            StopWallRun();
+
+            rb.useGravity = true;
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
 
         if (isWallRunning)
         {
@@ -78,9 +86,7 @@ public class PlayerMovement : MonoBehaviour
 
             wallRunTimer -= Time.fixedDeltaTime;
             if (wallRunTimer <= 0f)
-            {
                 StopWallRun();
-            }
         }
     }
 
