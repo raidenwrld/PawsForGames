@@ -29,7 +29,7 @@ public class Moving_Platform_Script : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         if (transform.position != current_target)
