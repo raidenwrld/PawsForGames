@@ -26,16 +26,31 @@ public class PlayerMovement : MonoBehaviour
     public float maxWallRunTime = 1.5f;
     private float wallRunTimer;
 
+    [Header("Crouch")]
+    public float crouchHeight = 1f;
+    public float standingHeight = 2f;
+    public float crouchSpeed = 2.5f;
+
     private Rigidbody rb;
+    private CapsuleCollider playerCollider;
     private bool isGrounded = false;
     private bool isDashing = false;
     private bool canDash = true;
     private bool isWallRunning = false;
     private bool jumpQueued = false;
+    private bool isCrouching = false;
+    private Vector3 originalScale;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<CapsuleCollider>();
+        if (playerCollider == null)
+        {
+            Debug.LogError("No CapsuleCollider found on the player!");
+        }
+
+        originalScale = transform.localScale;
     }
 
     void Update()
@@ -52,6 +67,15 @@ public class PlayerMovement : MonoBehaviour
         {
             StartCoroutine(Dash());
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            Crouch();
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            StandUp();
+        }
     }
 
     void FixedUpdate()
@@ -66,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
         if (isWallRunning)
             h = 0;
 
-        Vector3 horizontalVelocity = move * moveSpeed;
+        Vector3 horizontalVelocity = move * (isCrouching ? crouchSpeed : moveSpeed);
         rb.velocity = new Vector3(horizontalVelocity.x, rb.velocity.y, horizontalVelocity.z);
 
         if (jumpQueued)
@@ -140,8 +164,8 @@ public class PlayerMovement : MonoBehaviour
         if (isWallRunning) return;
 
         isWallRunning = true;
-        wallRunTimer = maxWallRunTime;  // resets wall run timer when starting to run again
-        rb.useGravity = false;  // disable normal gravity during wall run
+        wallRunTimer = maxWallRunTime;
+        rb.useGravity = false;
 
         rb.velocity = Vector3.Project(rb.velocity, Vector3.Cross(wallNormal, Vector3.up));
     }
@@ -152,5 +176,27 @@ public class PlayerMovement : MonoBehaviour
 
         isWallRunning = false;
         rb.useGravity = true;
+    }
+
+    void Crouch()
+    {
+        if (playerCollider != null)
+        {
+            playerCollider.height = crouchHeight;
+            Vector3 scale = originalScale;
+            scale.y *= crouchHeight / standingHeight;
+            transform.localScale = scale;
+            isCrouching = true;
+        }
+    }
+
+    void StandUp()
+    {
+        if (playerCollider != null)
+        {
+            playerCollider.height = standingHeight;
+            transform.localScale = originalScale;
+            isCrouching = false;
+        }
     }
 }
