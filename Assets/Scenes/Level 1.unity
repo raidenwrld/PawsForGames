@@ -2118,7 +2118,7 @@ GameObject:
   - component: {fileID: 569908818}
   m_Layer: 0
   m_Name: lava floor (1)
-  m_TagString: Ground
+  m_TagString: KillFloor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2130,13 +2130,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 569908817}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5603f9ab7585fb41bfe905ef165d7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1611606721}
   respawn_point: {fileID: 1459172021}
+  startingLives: 3
 --- !u!65 &569908819
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3041,7 +3041,7 @@ GameObject:
   - component: {fileID: 857669527}
   m_Layer: 0
   m_Name: lava floor
-  m_TagString: Ground
+  m_TagString: KillFloor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3139,13 +3139,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 857669522}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5603f9ab7585fb41bfe905ef165d7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1611606721}
   respawn_point: {fileID: 649787419}
+  startingLives: 3
 --- !u!1 &859924412
 GameObject:
   m_ObjectHideFlags: 0
@@ -4452,7 +4452,7 @@ GameObject:
   - component: {fileID: 1413647018}
   m_Layer: 0
   m_Name: lava floor (2)
-  m_TagString: Ground
+  m_TagString: KillFloor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4464,13 +4464,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413647017}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5603f9ab7585fb41bfe905ef165d7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1611606721}
   respawn_point: {fileID: 1887860594}
+  startingLives: 3
 --- !u!65 &1413647019
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5207,6 +5207,7 @@ GameObject:
   - component: {fileID: 1611606718}
   - component: {fileID: 1611606717}
   - component: {fileID: 1611606722}
+  - component: {fileID: 1611606723}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Player
@@ -5360,6 +5361,23 @@ MonoBehaviour:
   wallRunForce: 10
   wallRunGravity: 3
   maxWallRunTime: 1
+  crouchHeight: 1
+  standingHeight: 2
+  crouchSpeed: 2.5
+--- !u!114 &1611606723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611606716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5603f9ab7585fb41bfe905ef165d7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawn_point: {fileID: 649787419}
+  startingLives: 3
 --- !u!1 &1618291143
 GameObject:
   m_ObjectHideFlags: 0
