@@ -5,13 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class KillFloor : MonoBehaviour
 {
-    [SerializeField] private Transform respawn_point;
+    [SerializeField] private Transform startingRespawnPoint;
     [SerializeField] private int startingLives = 3;
 
+    private Transform currentRespawnPoint;
     private int currentLives;
 
     private void Start()
     {
+        currentRespawnPoint = startingRespawnPoint;
         currentLives = startingLives;
     }
 
@@ -23,12 +25,21 @@ public class KillFloor : MonoBehaviour
 
             if (currentLives > 0)
             {
-                transform.position = respawn_point.position;
+                transform.position = currentRespawnPoint.position;
             }
             else
             {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+
+                GetComponentInChildren<MouseLook>().enabled = false;
+
                 SceneManager.LoadScene("MainMenu");
             }
+        }
+        else if (other.CompareTag("Checkpoint"))
+        {
+            currentRespawnPoint = other.transform;
         }
     }
 }
