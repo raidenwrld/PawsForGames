@@ -3903,7 +3903,7 @@ GameObject:
   - component: {fileID: 1221271480}
   m_Layer: 0
   m_Name: StartingSpawn
-  m_TagString: Untagged
+  m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
