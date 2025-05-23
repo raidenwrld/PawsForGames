@@ -44,11 +44,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.useGravity = true;
         playerCollider = GetComponent<CapsuleCollider>();
-        if (playerCollider == null)
-        {
-            Debug.LogError("No CapsuleCollider found on the player!");
-        }
 
         originalScale = transform.localScale;
     }
