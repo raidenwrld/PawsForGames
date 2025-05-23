@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -24,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
     public float wallRunForce = 10f;
     public float wallRunGravity = 1f;
     public float maxWallRunTime = 1.5f;
-    private float wallRunTimer;
 
     [Header("Crouch")]
     public float crouchHeight = 1f;
@@ -33,16 +32,60 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
     private CapsuleCollider playerCollider;
+
     private bool isGrounded = false;
     private bool isDashing = false;
     private bool canDash = true;
     private bool isWallRunning = false;
     private bool jumpQueued = false;
     private bool isCrouching = false;
+
+    private float wallRunTimer;
+
+    private bool forwardPressed;
+    private bool backwardPressed;
+    private bool leftPressed;
+    private bool rightPressed;
+
+    private PlayerControls controls;
+    private bool dashQueued = false;
+    private bool crouchHeld = false;
     private Vector3 originalScale;
+
+    void Awake()
+    {
+        controls = new PlayerControls();
+
+        controls.Player.Forward.performed += _ => forwardPressed = true;
+        controls.Player.Forward.canceled += _ => forwardPressed = false;
+
+        controls.Player.Backward.performed += _ => backwardPressed = true;
+        controls.Player.Backward.canceled += _ => backwardPressed = false;
+
+        controls.Player.Left.performed += _ => leftPressed = true;
+        controls.Player.Left.canceled += _ => leftPressed = false;
+
+        controls.Player.Right.performed += _ => rightPressed = true;
+        controls.Player.Right.canceled += _ => rightPressed = false;
+
+        controls.Player.Jump.performed += _ => jumpQueued = true;
+        controls.Player.Dash.performed += _ => dashQueued = true;
+
+        controls.Player.Crouch.performed += _ => { crouchHeld = true; Crouch(); };
+        controls.Player.Crouch.canceled += _ => { crouchHeld = false; StandUp(); };
+    }
+
+    void OnEnable() => controls.Enable();
+    void OnDisable() => controls.Disable();
 
     void Start()
     {
+        string rebinds = PlayerPrefs.GetString("inputRebinds", string.Empty);
+        if (!string.IsNullOrEmpty(rebinds))
+        {
+            controls.LoadBindingOverridesFromJson(rebinds);
+        }
+
         rb = GetComponent<Rigidbody>();
         rb.useGravity = true;
         playerCollider = GetComponent<CapsuleCollider>();
@@ -55,23 +98,10 @@ public class PlayerMovement : MonoBehaviour
         CheckGrounded();
         CheckWallRun();
 
-        if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || isWallRunning))
+        if (dashQueued && canDash && !isDashing)
         {
-            jumpQueued = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && !isDashing)
-        {
+            dashQueued = false;
             StartCoroutine(Dash());
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            Crouch();
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
-            StandUp();
         }
     }
 
@@ -79,8 +109,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDashing) return;
 
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+        float h = (rightPressed ? 1 : 0) + (leftPressed ? -1 : 0);
+        float v = (forwardPressed ? 1 : 0) + (backwardPressed ? -1 : 0);
 
         Vector3 move = transform.right * h + transform.forward * v;
 
@@ -116,7 +146,9 @@ public class PlayerMovement : MonoBehaviour
         isDashing = true;
         canDash = false;
 
-        Vector3 dashDirection = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");
+        float h = (rightPressed ? 1 : 0) + (leftPressed ? -1 : 0);
+        float v = (forwardPressed ? 1 : 0) + (backwardPressed ? -1 : 0);
+        Vector3 dashDirection = transform.right * h + transform.forward * v;
         if (dashDirection == Vector3.zero)
             dashDirection = transform.forward;
 
@@ -146,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
         bool wallLeft = Physics.Raycast(transform.position, -transform.right, wallCheckDistance, wallLayer);
         bool wallRight = Physics.Raycast(transform.position, transform.right, wallCheckDistance, wallLayer);
 
-        if ((wallLeft || wallRight) && Input.GetKey(KeyCode.W))
+        if ((wallLeft || wallRight) && forwardPressed)
         {
             StartWallRun(wallLeft ? -transform.right : transform.right);
         }
