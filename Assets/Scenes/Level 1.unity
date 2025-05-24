@@ -5298,6 +5298,7 @@ GameObject:
   - component: {fileID: 1611606723}
   - component: {fileID: 1611606724}
   - component: {fileID: 1611606725}
+  - component: {fileID: 1611606726}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Player
@@ -5479,7 +5480,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d3d81ac844aac4a408f9e2f99f21b15a, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.363
   m_Pitch: 1
   Loop: 0
@@ -5594,6 +5595,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1611606726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611606716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2e07b51f02b33342bd060aac354dc60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1618291143
 GameObject:
   m_ObjectHideFlags: 0

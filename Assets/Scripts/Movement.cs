@@ -89,8 +89,10 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = true;
         playerCollider = GetComponent<CapsuleCollider>();
-
+        
         originalScale = transform.localScale;
+        AudioSource source = GetComponent<AudioSource>();
+        source.volume = PlayerPrefs.GetFloat("PlayerVolume", 1f);
     }
 
     void Update()
@@ -123,11 +125,15 @@ public class PlayerMovement : MonoBehaviour
         if (jumpQueued)
         {
             jumpQueued = false;
-            StopWallRun();
 
-            rb.useGravity = true;
-            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            if (isGrounded || isWallRunning)
+            {
+                StopWallRun();
+
+                rb.useGravity = true;
+                rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            }
         }
 
         if (isWallRunning)
