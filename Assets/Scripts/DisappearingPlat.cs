@@ -14,7 +14,7 @@ public class DisappearingPlat : MonoBehaviour
         if (playerOnTop)
         {
             timer += Time.deltaTime;
-            if (timer >= 2f)
+            if (timer >= 0.3f)
             {
                 Destroy(gameObject);
             }
