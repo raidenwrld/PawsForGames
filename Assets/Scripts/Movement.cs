@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
+    public float bounceForce = 10f;
 
     [Header("Dash")]
     public float dashSpeed = 20f;
@@ -39,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isWallRunning = false;
     private bool jumpQueued = false;
     private bool isCrouching = false;
-
     private float wallRunTimer;
 
     private bool forwardPressed;
@@ -232,6 +232,13 @@ public class PlayerMovement : MonoBehaviour
             playerCollider.height = standingHeight;
             transform.localScale = originalScale;
             isCrouching = false;
+        }
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("BouncePad"))
+        {
+            rb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
         }
     }
 }
