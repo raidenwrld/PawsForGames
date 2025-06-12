@@ -2210,8 +2210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5603f9ab7585fb41bfe905ef165d7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1611606721}
-  respawn_point: {fileID: 1459172021}
+  startingRespawnPoint: {fileID: 0}
+  startingLives: 3
 --- !u!65 &569908819
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3182,8 +3182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5603f9ab7585fb41bfe905ef165d7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1611606721}
-  respawn_point: {fileID: 649787419}
+  startingRespawnPoint: {fileID: 0}
+  startingLives: 3
 --- !u!1 &859924412
 GameObject:
   m_ObjectHideFlags: 0
@@ -4450,8 +4450,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5603f9ab7585fb41bfe905ef165d7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1611606721}
-  respawn_point: {fileID: 1887860594}
+  startingRespawnPoint: {fileID: 0}
+  startingLives: 3
 --- !u!65 &1413647019
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5444,6 +5444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpForce: 5
+  bounceForce: 10
   dashSpeed: 20
   dashDuration: 0.2
   dashCooldown: 1
@@ -5459,6 +5460,9 @@ MonoBehaviour:
   wallRunForce: 10
   wallRunGravity: 3
   maxWallRunTime: 1
+  crouchHeight: 1
+  standingHeight: 2
+  crouchSpeed: 2.5
 --- !u!1 &1618291143
 GameObject:
   m_ObjectHideFlags: 0
